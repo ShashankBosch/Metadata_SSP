@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/symbol.png') }}" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='Admin/admin.css') }}" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+ <img src="{{ url_for('static', filename='images/line_image.svg') }}" alt="Top Border" class="line-ribbon"/> 
+    <div id="mainContent">
+      <!-- Header -->
+      <header class="main-header">
+        <div class="left-header">
+          <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='images/bosch_Logo.png') }}" alt="Main Logo" class="header-logo" id="boschLogo" />
+          </a>
+        </div>
+        <nav class="top-menu">
+          <ul>
+            <li><a href="{{ url_for('metadata') }}">Asset Inventory</a></li>
+            <li><a href="{{ url_for('review_page') }}">Review & Approval</a></li>
+            <li><a href="{{ url_for('trigger_notification') }}">Trigger Notification</a></li>
+          </ul>
+        </nav>
+      </header>
+ <main>
+  <!-- Asset Inventory Section -->
+  <section id="asset-section" class="panel">
+    <h2>Admin Dashboard</h2>
+    <div class="asset-controls">
+      <button onclick="exportMetadata()" class="export-btn">Export Metadata</button>
+      <input type="text" id="asset-search" placeholder="Search Assets..." />
+      <select id="asset-filter">
+        <option value="">All Cloud Providers</option>
+        <option value="Azure">Azure</option>
+        <option value="AWS">AWS</option>
+        <option value="GCP">GCP</option>
+      </select>
+      <select id="platform-filter">
+        <option value="">All Platforms</option>
+        <option value="Production">Production</option>
+        <option value="Sandbox">Sandbox</option>
+        <option value="Development">Development</option>
+        <option value="Testing">Testing</option>
+        <option value="Staging">Staging</option>
+      </select>
+    </div>
+    <table id="asset-table">
+      <thead>
+        <tr>
+          <th>Subscription</th>
+          <th>Cloud Provider</th>
+          <th>Cost Center</th>
+          <th>Owner</th>
+          <th>Platform</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dynamic rows -->
+        <tr>
+          <td>SUB-001</td>
+          <td>Azure</td>
+          <td>CC-1001</td>
+          <td>owner1@domain.com</td>
+          <td>Production</td>
+          <td><button class="edit-btn" onclick="editAsset(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>SUB-002</td>
+          <td>AWS</td>
+          <td>CC-2002</td>
+          <td>owner2@domain.com</td>
+          <td>Sandbox</td>
+          <td><button class="edit-btn" onclick="editAsset(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>SUB-003</td>
+          <td>GCP</td>
+          <td>CC-3003</td>
+          <td>owner3@domain.com</td>
+          <td>Development</td>
+          <td><button class="edit-btn" onclick="editAsset(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>SUB-004</td>
+          <td>Azure</td>
+          <td>CC-4004</td>
+          <td>owner4@domain.com</td>
+          <td>Testing</td>
+          <td><button class="edit-btn" onclick="editAsset(this)">Edit</button></td>
+        </tr>
+        <tr>
+          <td>SUB-005</td>
+          <td>AWS</td>
+          <td>CC-5005</td>
+          <td>owner5@domain.com</td>
+          <td>Staging</td>
+          <td><button class="edit-btn" onclick="editAsset(this)">Edit</button></td>
+        </tr>
+      </tbody>
+    </table>
+   
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeEditModal()">&times;</span>
+        <h3>Edit Asset Metadata</h3>
+        <form id="edit-form">
+          <input type="hidden" id="edit-subscription">
+          <div class="form-group">
+            <label for="edit-provider">Cloud Provider:</label>
+            <select id="edit-provider">
+              <option value="Azure">Azure</option>
+              <option value="AWS">AWS</option>
+              <option value="GCP">GCP</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-costcenter">Cost Center:</label>
+            <input type="text" id="edit-costcenter">
+          </div>
+          <div class="form-group">
+            <label for="edit-owner">Owner:</label>
+            <input type="email" id="edit-owner">
+          </div>
+          <div class="form-group">
+            <label for="edit-platform">Platform:</label>
+            <select id="edit-platform">
+              <option value="Production">Production</option>
+              <option value="Sandbox">Sandbox</option>
+              <option value="Development">Development</option>
+              <option value="Testing">Testing</option>
+              <option value="Staging">Staging</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="button" onclick="saveAsset()">Save</button>
+            <button type="button" onclick="closeEditModal()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+  <footer>
+        <p>&copy; 2025 Bosch Organization</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a> |
+          <a href="#">Terms</a> |
+          <a href="#">Support</a> |
+          <a href="#">Contact</a> |
+          <a href="#">Updates</a> |
+          <a href="#">Version 1.0.0</a> |
+          <a href="#">Community Page</a> |
+          <a href="#">News & Update </a>
+        </div>
+      </footer>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="{{ url_for('static', filename='Admin/admin.js') }}"></script>
+ 
+</body>
+</html>
+ 

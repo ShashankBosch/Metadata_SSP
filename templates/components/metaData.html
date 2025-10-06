@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Asset Inventory & Metadata Detail</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='components/cssMeta/metaData.css') }}" />
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/symbol.png') }}" type="image/x-icon" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- Top color line ribbon of bosch -->
+  <img src="{{ url_for('static', filename='images/line_image.svg') }}" alt="Top Border" class="line-ribbon"/> 
+  <!-- Main Content -->
+  <div id="mainContent">
+    <header class="main-header">
+      <div class="left-header">
+        <!-- <i class="fas fa-bars" id="hamburger"></i> -->
+        <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/bosch_Logo.png') }}" alt="Main Logo" class="header-logo" id="boschLogo" /></a>
+      </div>
+      <nav class="top-menu">
+        <ul>
+          <li><a href="{{ url_for('help_support') }}">Help & Support</a></li>
+          <li><a href="{{ url_for('review_page') }}">Review & Approval</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main-asset-page">
+      <marquee behavior="scroll" direction="left">
+        Only the Cost Center owner or IT owner is authorized to update the metadata. If you wish to delete the subscription/account/project, please submit a deletion request using the ITSP order form.
+      </marquee>
+
+      <!-- Asset Table -->
+      <section class="asset-table-section">
+  <h2>Cloud Assets Overview</h2>
+  <div class="table-action-bar">
+    <button id="exportBtn" title="Export Selected" class="export-icon"><i class="fas fa-file-export"></i></button>
+  </div>
+
+ <table class="asset-table redesigned-table">
+  <thead>
+    <tr>
+      <th>Select</th>
+
+      <th>
+        <div class="header-box">
+          <span class="header-title">Platform</span>
+          <div class="filter-wrapper">
+            <button class="filter-icon">🔽</button>
+            <div class="filter-dropdown">
+              <input type="text" class="filter-input" placeholder="Search Platform..." />
+              <ul class="filter-options">
+              </ul>
+              <button class="clear-filter">Clear Filter</button>
+            </div>
+          </div>
+        </div>
+      </th>
+
+      <th>
+        <div class="header-box">
+          <span class="header-title">Status</span>
+          <div class="filter-wrapper">
+            <button class="filter-icon">🔽</button>
+            <div class="filter-dropdown">
+              <input type="text" class="filter-input" placeholder="Search Status..." />
+              <ul class="filter-options">
+              </ul>
+              <button class="clear-filter">Clear Filter</button>
+            </div>
+          </div>
+        </div>
+      </th>
+
+      <th>
+        <div class="header-box">
+          <span class="header-title">ID</span>
+          <div class="filter-wrapper">
+            <button class="filter-icon">🔽</button>
+            <div class="filter-dropdown">
+              <input type="text" class="filter-input" placeholder="Search ID..." />
+              <ul class="filter-options">
+              </ul>
+              <button class="clear-filter">Clear Filter</button>
+            </div>
+          </div>
+        </div>
+      </th>
+
+      <th>
+        <div class="header-box">
+          <span class="header-title">Environment</span>
+          <div class="filter-wrapper">
+            <button class="filter-icon">🔽</button>
+            <div class="filter-dropdown">
+              <input type="text" class="filter-input" placeholder="Search Environment..." />
+              <ul class="filter-options">
+              </ul>
+              <button class="clear-filter">Clear Filter</button>
+            </div>
+          </div>
+        </div>
+      </th>
+
+      <th>
+        <div class="header-box">
+          <span class="header-title">Cost Center</span>
+          <div class="filter-wrapper">
+            <button class="filter-icon">🔽</button>
+            <div class="filter-dropdown">
+              <input type="text" class="filter-input" placeholder="Search Cost Center..." />
+              <ul class="filter-options">
+              </ul>
+              <button class="clear-filter">Clear Filter</button>
+            </div>
+          </div>
+        </div>
+      </th>
+
+      <th>
+        <div class="header-box">
+          <span class="header-title">IT Owner</span>
+          <div class="filter-wrapper">
+            <button class="filter-icon">🔽</button>
+            <div class="filter-dropdown">
+              <input type="text" class="filter-input" placeholder="Search IT Owner..." />
+              <ul class="filter-options">
+              </ul>
+              <button class="clear-filter">Clear Filter</button>
+            </div>
+          </div>
+        </div>
+      </th>
+
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody id="assetBody">
+    {% for sub in subscriptions %}
+    <tr class="data-row">
+      <td><input type="checkbox" class="row-selector" /></td>
+      <td class="platform {{ sub.platform | lower }}">{{ sub.platform }}</td>
+      <td class="status" >{{ sub['Subscription Status'] }}</td>
+      <td class="id"><strong>{{ sub["Subscription ID"] }}</strong></td>
+      <td class="environment">{{ sub["Environment"] or "N/A" }}</td>
+      <td class="costcenter">{{ sub["Cost Center"] or "N/A" }}</td>
+      <td class="itowner">{{ sub["IT Owner"] or "N/A" }}</td>
+      <td>
+        <button class="expand-btn" onclick="window.location.href='{{ url_for('meta_details') }}?id={{ sub["Subscription ID"] }}&platform={{ sub.platform }}'">Details</button>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="8" style="text-align: center;">No subscriptions found for this user.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+
+ </table>
+
+  <div id="detailView" class="detail-view hidden"></div>
+</section>
+
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Bosch Organization</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Terms</a> |
+        <a href="#">Support</a> |
+        <a href="#">Contact</a> |
+        <a href="#">Updates</a> |
+        <a href="#">Version 1.0.0</a> |
+        <a href="#">Community Page</a> |
+        <a href="#">News & Update</a>
+      </div>
+    </footer>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="{{ url_for('static', filename='components/jsMeta/metaData.js') }}"></script>
+  
+</body>
+</html>

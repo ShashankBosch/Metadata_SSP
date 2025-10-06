@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trigger Notification</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='Admin/admin.css') }}" />
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/symbol.png') }}" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+ <img src="{{ url_for('static', filename='images/line_image.svg') }}" alt="Top Border" class="line-ribbon"/> 
+ 
+  <!-- Main Content -->
+  <div id="mainContent">
+    <header class="main-header">
+      <div class="left-header">
+        <a href="{{ url_for('home') }}">
+          <img src="{{ url_for('static', filename='images/bosch_Logo.png') }}" alt="Main Logo" class="header-logo" id="boschLogo" />
+        </a>
+      </div>
+      <div class="right-header">
+        <nav class="top-menu">
+            <ul>
+            <li><a href="{{ url_for('admin_page') }}">Admin</a></li>
+            </ul>
+           </nav>
+      </div>
+    </header>
+ 
+    <main class="main-asset-page admin-page">
+       <!-- Trigger Notification Section -->
+ <section id="notification-section" class="panel">
+  <h2>Trigger Notification</h2>
+ 
+  <div class="notification-grid">
+    <!-- Initial Email Card -->
+    <div class="notification-card">
+      <div class="card-header">
+        <i class="ri-mail-send-fill"></i>
+        <h3>Initial E-mail</h3>
+      </div>
+      <div class="card-body">
+        <p>Download current data of emails sent to agents</p>
+        <button class="btn-primary" onclick="sendInitialEmail()">
+          <i class="ri-download-line"></i> Download Excel
+        </button>
+      </div>
+    </div>
+   
+    <!-- Reminder Email Card -->
+   <div class="notification-card">
+  <div class="card-header">
+    <i class="ri-alarm-warning-fill"></i>
+    <h3>Reminder</h3>
+  </div>
+  <div class="card-body">
+    <div class="overdue-list">
+      <h4>Overdue Subscriptions</h4>
+      <table class="overdue-table">
+        <thead>
+          <tr>
+            <th>Subscription</th>
+            <th>Cloud</th>
+            <th>Cost Center</th>
+            <th>Owner</th>
+            <th>Days Overdue</th>
+          </tr>
+        </thead>
+        <tbody id="overdue-items">
+          <!-- Dynamically populated -->
+        </tbody>
+      </table>
+    </div>
+    <button class="btn-warning" onclick="sendReminderEmails()" id="reminder-btn">
+      <i class="ri-send-plane-fill"></i> Send Reminder
+    </button>
+  </div>
+</div>
+   
+    <!-- BDO Email Card -->
+    <div class="notification-card">
+      <div class="card-header">
+        <i class="ri-group-fill"></i>
+        <h3>Consolidated to BDO</h3>
+      </div>
+      <div class="card-body">
+        <div class="bdo-status">
+          <h4>Status Filter:</h4>
+          <div class="status-filter">
+            <label><input type="checkbox" checked> Up to Date</label>
+            <label><input type="checkbox" checked> Needs Check</label>
+          </div>
+        </div>
+        <button class="btn-success" onclick="sendBdoEmail()">
+          <i class="ri-send-plane-2-fill"></i> Send to BDOs
+        </button>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Email Log Table -->
+  <div class="email-log">
+    <h3><i class="ri-history-line"></i> Email Log History</h3>
+    <div class="table-container">
+      <table id="email-log-table">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Type</th>
+            <th>Recipient</th>
+            <th>Subscription</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Sample log entries -->
+          <tr>
+            <td>2023-11-15 09:30</td>
+            <td><span class="badge badge-info">Initial</span></td>
+            <td>cloud-team@domain.com</td>
+            <td>All</td>
+            <td><span class="badge badge-success">Sent</span></td>
+          </tr>
+          <tr>
+            <td>2023-11-14 14:15</td>
+            <td><span class="badge badge-warning">Reminder</span></td>
+            <td>owner1@domain.com</td>
+            <td>SUB-001</td>
+            <td><span class="badge badge-success">Sent</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+  <footer>
+        <p>&copy; 2025 Bosch Organization</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a> |
+          <a href="#">Terms</a> |
+          <a href="#">Support</a> |
+          <a href="#">Contact</a> |
+          <a href="#">Updates</a> |
+          <a href="#">Version 1.0.0</a> |
+          <a href="#">Community Page</a> |
+          <a href="#">News & Update </a>
+        </div>
+      </footer>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="{{ url_for('static', filename='Admin/admin.js') }}"></script>
+ 
+</body>
+</html>

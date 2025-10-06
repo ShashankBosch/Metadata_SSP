@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/symbol.png') }}" type="image/x-icon">
+  <title>Metadata Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body>
+  <!-- Top color line ribbon of bosch -->
+  <img src="{{ url_for('static', filename='images/line_image.svg') }}" alt="Top Border" class="line-ribbon"/>
+    <!-- Modal -->
+  <div id="introModal" class="modal">
+    <div class="modal-content">
+      <h3>Please Note</h3>
+      <p>Only the Cost Center owner or IT owner is authorized to update the metadata. If you wish to delete the subscription/account/project, please submit a deletion request using the <b>ITSP order form</b>.</p>
+      <button id="closeModalBtn">Close</button>
+    </div>
+  </div>
+ 
+  <!-- Page Wrapper -->
+  <div id="pageWrapper" class="blurred">
+ 
+    <!-- main Page -->
+    <div id="mainContent">
+      <!-- Nav Bar Section -->
+      <header class="main-header">
+        <div class="left-header">
+              <a href="{{ url_for('home') }}">    
+                <img src="{{ url_for('static', filename='images/bosch_Logo.png') }}" alt="Main Logo" class="header-logo" id="boschLogo" /></a>
+              </a>
+          </div>
+        <div class="right-header">
+        <nav class="top-menu">
+            <ul>
+              <li><a href="{{ url_for('metadata') }}">Asset Inventory & Metadata Detail</a></li>
+              <li><a href="{{ url_for('help_support') }}">Help & Support</a></li>
+              <li class="adminbtn"><a href="{{ url_for('admin_page') }}">Admin</a></li>
+              <li class="adminbtn"><a href="#"></a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+ 
+      <!-- Main -->
+      <!-- Main -->
+      <main class="main-place">
+        <div class="main-headings">
+        <h2>Welcome {{ user_name }}!</h2>
+      </div>
+         <section class="portal-showcase">
+  <h1 class="section-title">Meta Data Self Service Portal - Bosch</h1>
+  <div class="carousel-wrapper">
+    <div class="carousel-track">
+      <div class="carousel-slide">
+        <div class="carousel-overlay"></div>
+        <img src="{{ url_for('static', filename='images/dunkel.webp') }}" alt="Slide 1">
+      </div>
+      <div class="carousel-slide">
+        <div class="carousel-overlay"></div>
+        <img src="{{ url_for('static', filename='images/bosch_factory.webp') }}" alt="Slide 2">
+      </div>
+      <div class="carousel-slide">
+        <div class="carousel-overlay"></div>
+        <img src="{{ url_for('static', filename='images/the_spark.webp') }}" alt="Slide 3">
+      </div>
+    </div>
+ 
+    <div class="card-group">
+      <div class="card">
+        <h2>Deliver</h2>
+        <p>It is essential to grow and build a successful future by delivering on our promises, commitments, tasks, and goals.</p>
+      </div>
+      <div class="card">
+        <h2>Our strategy </h2>
+        <p>As a leading technology company, we want to be among the top three players in each of our markets. </p>
+      </div>
+      <div class="card">
+        <h2>Shape</h2>
+        <p>Shaping our company means we keep evolving and adapting. We digitalize our processes, business, and operations, also by using artificial intelligence. </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Platform Navigation Cards -->
+<section class="summary-section">
+  <h3>Summary of All Assets</h3>
+  <div class="summary-cards">
+
+    <!-- Azure Card -->
+    <div class="slide-card" id="azureCard">
+      <img src="{{ url_for('static', filename='images/Azure_icon.png') }}" alt="Azure Info" class="card-img" />
+      <div class="slide-info">
+        <h4>Azure</h4>
+        <p>Total Subscriptions: {{ azure_counts.total }}</p>
+        <p>Up to date: {{ azure_counts.up_to_date }}</p>
+        <p>Overdue: {{ azure_counts.overdue }}</p>
+        <p>In-Progress: {{ azure_counts.in_progress }}</p>
+        <p>Check: {{ azure_counts.check }}</p>
+      </div>
+    </div>
+
+    <!-- AWS Card -->
+    <div class="slide-card" id="awsCard">
+      <img src="{{ url_for('static', filename='images/AWS_icon.png') }}" alt="AWS Info" class="card-img" />
+      <div class="slide-info">
+        <h4>AWS</h4>
+        <p>Total Subscriptions: {{ aws_counts.total }}</p>
+        <p>Up to date: {{ aws_counts.up_to_date }}</p>
+        <p>Overdue: {{ aws_counts.overdue }}</p>
+        <p>In-Progress: {{ aws_counts.in_progress }}</p>
+        <p>Check: {{ aws_counts.check }}</p>
+      </div>
+    </div>
+
+    <!-- GCP Card -->
+    <div class="slide-card" id="gcpCard">
+      <img src="{{ url_for('static', filename='images/GCP_icon.png') }}" alt="GCP Info" class="card-img" />
+      <div class="slide-info">
+        <h4>GCP</h4>
+        <p>Total Subscriptions: {{ gcp_counts.total }}</p>
+        <p>Up to date: {{ gcp_counts.up_to_date }}</p>
+        <p>Overdue: {{ gcp_counts.overdue }}</p>
+        <p>In-Progress: {{ gcp_counts.in_progress }}</p>
+        <p>Check: {{ gcp_counts.check }}</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+ 
+<!-- About Us -->
+<section class="bosch-overlap">
+  <div class="bosch-container">
+    <div class="bosch-image-wrapper">
+      <img src="{{ url_for('static', filename='images/about.webp') }}" alt="Bosch Logistics Illustration"  />
+    </div>
+    <div class="bosch-content">
+      <h2>Digitally empowering filling of Meta Data</h2>
+      <p>
+        Bosch Solutions, a global SaaS leader, delivers cloud-based technology
+        solutions, transforming logistics operations for Fortune 500 companies worldwide.
+        With cutting-edge Cargo Community Platforms and enterprise automation solutions,
+        it empowers seamless, paperless trade for stakeholders across air, maritime, and
+        freight logistics in 40+ countries.
+      </p>
+      <button class="bosch-btn">Read more</button>
+    </div>
+  </div>
+</section>
+  <!-- Footer -->
+      <footer>
+        <div class="footer-links">
+            <a href="#">&copy; 2025 Bosch Organization</a>
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms</a> |
+            <a href="#">Support</a> |
+            <a href="#">Contact</a> |
+            <a href="#">Updates</a> |
+            <a href="#">Version 1.0.0</a> |
+            <a href="#">Community Page</a> |
+            <a href="#">News & Update </a>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <div id="chatbot-icon">
+  <img src="{{ url_for('static', filename='images/ai1.png') }}" alt="Chatbot" />
+</div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

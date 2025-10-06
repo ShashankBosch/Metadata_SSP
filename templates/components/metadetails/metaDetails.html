@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Metadata Detail</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='components/cssMeta/metaData.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/symbol.png') }}" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+  <!-- Top color line ribbon of bosch -->
+  <img src="{{ url_for('static', filename='images/line_image.svg') }}" alt="Top Border" class="line-ribbon"/> 
+  <div id="mainContent">
+    <header class="main-header">
+      <div class="left-header">
+        <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/bosch_Logo.png') }}" alt="Main Logo" class="header-logo" id="boschLogo" /></a>
+      </div>
+      <nav class="top-menu">
+        <ul>
+          <li><a href="{{ url_for('help_support') }}">Help & Support</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="detail-page">
+      <h2>Metadata Comparison</h2>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Current Metadata</th>
+            <th>Check / Update Data</th>
+          </tr>
+        </thead>
+          <tbody>
+            <tr>
+              <td><span class="field-label">Subscription ID</span><div class="readonly">{{ subscription['Subscription ID'] }}</div></td>
+              <td><span class="field-label">Subscription ID</span><div class="readonly">{{ subscription['Subscription ID'] }}</div></td>
+            </tr>
+            <tr>
+              <td><span class="field-label">Subscription Name</span><div class="readonly">{{ subscription['Subscription Name'] }}</div></td>
+              <td><span class="field-label">Subscription Name</span><div class="readonly">{{ subscription['Subscription Name'] }}</div></td>
+            </tr>
+            <tr>
+              <td><span class="field-label">Organizational Unit</span><div class="readonly" >{{ subscription['Organizational Unit (Current)'] }}</div></td>
+              <td><span class="field-label">Organizational Unit</span><input type="text" class="editable" style="text-align-last: center;" value="{{ subscription['Organizational Unit'] }}" /></td>
+            </tr>
+            <tr>
+              <td><span class="field-label">Platform</span><div class="readonly">{{ subscription['platform'] }}</div></td>
+              <td><span class="field-label">Platform</span><div class="readonly">{{ subscription['platform'] }}</div></td>
+            </tr>
+            <tr>
+              <td><span class="field-label">Type of Environment</span><div class="readonly">{{ subscription['Type of Environment (Current)'] }}</div></td>
+              <td><span class="field-label">Type of Environment</span>
+                <select class="editable" style="text-align-last: center;">
+                  {% for env in ['Development', 'Production', 'Sandbox'] %}
+                    <option {% if subscription['Type of Environment'] == env %}selected{% endif %}>{{ env }}</option>
+                  {% endfor %}
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><span class="field-label">IT Owner</span>
+                  <div class="readonly">{{ subscription['IT Owner (Current)'] }}</div>
+              </td>
+              <td><span class="field-label">IT Owner</span>
+                  <input type="text" id="it_owner" class="editable" style="text-align: center;" value="{{ subscription['IT Owner'] }}" />
+              </td>
+            </tr>
+
+            <tr>
+              <td><span class="field-label">IT Owner WOM</span>
+                  <div class="readonly">{{ subscription['IT Owner WOM (Current)'] }}</div>
+              </td>
+              <td><span class="field-label">IT Owner WOM</span>
+                  <div class="readonly" id="it_owner_wom">{{ subscription['IT Owner WOM'] }}</div>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="field-label">Cost Center</span>
+                  <div class="readonly">{{ subscription['Cost Center (Current)'] }}</div>
+              </td>
+              <td><span class="field-label">Cost Center</span>
+                  <input type="text" id="cost_center" class="editable" style="text-align: center;" value="{{ subscription['Cost Center'] }}" />
+              </td>
+            </tr>
+            <tr>
+              <td><span class="field-label">Cost Center Name</span>
+                  <div class="readonly">{{ subscription['Cost Center Name (Current)'] }}</div>
+              </td>
+              <td><span class="field-label">Cost Center Name</span>
+                  <div class="readonly" id="cc_name">{{ subscription['Cost Center Name'] }}</div>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="field-label">Cost Center Responsible</span>
+                  <div class="readonly">{{ subscription['Cost Center Responsible (Current)'] }}</div>
+              </td>
+              <td><span class="field-label">Cost Center Responsible</span>
+                  <div class="readonly" id="cc_responsible">{{ subscription['Cost Center Responsible'] }}</div>
+              </td>
+            </tr>
+
+            <tr>
+              <td><span class="field-label">Cost Center Responsible WOM</span>
+                  <div class="readonly">{{ subscription['Cost Center Responsible WOM (Current)'] }}</div>
+              </td>
+              <td><span class="field-label">Cost Center Responsible WOM</span>
+                  <div class="readonly" id="cc_responsible_wom">{{ subscription['Cost Center Responsible WOM'] }}</div>
+              </td>
+            </tr>
+
+            <tr>
+              <td><span class="field-label">I-SC</span><div class="readonly">{{ subscription.get('I-SC (Current)', 'N/A') }}</div></td>
+              <td><div class="field-label">I-SC</div>
+                <select class="editable" style="text-align-last: center;">
+                  {% for env in ['SC0', 'SC1', 'SC2', 'SC3'] %}
+                    {% set full_value = 'I-' + env if subscription.platform in ['Azure', 'GCP'] else env %}
+                    <option value="{{ env }}" {% if subscription.get('I-SC') == full_value %}selected{% endif %}>{{ env }}</option>
+                  {% endfor %}
+                </select>
+              </td>
+            </tr>     
+            <tr>
+              <td><span class="field-label">A-SC</span><div class="readonly">{{ subscription.get('A-SC (Current)', 'N/A') }}</div></td>
+              <td><div class="field-label">A-SC</div>
+                <select class="editable" style="text-align-last: center;">
+                  {% for env in ['SC0', 'SC1', 'SC2', 'SC3'] %}
+                    {% set full_value = 'A-' + env if subscription.platform in ['Azure', 'GCP'] else env %}
+                    <option value="{{ env }}" {% if subscription.get('A-SC') == full_value %}selected{% endif %}>{{ env }}</option>
+                  {% endfor %}
+                </select>
+              </td>
+            </tr>    
+            <tr>
+              <td><span class="field-label">C-SC</span><div class="readonly">{{ subscription.get('C-SC (Current)', 'N/A') }}</div></td>
+              <td><div class="field-label">C-SC</div>
+                <select class="editable" style="text-align-last: center;">
+                  {% for env in ['SC0', 'SC1', 'SC2', 'SC3'] %}
+                    {% set full_value = 'C-' + env if subscription.platform in ['Azure', 'GCP'] else env %}
+                    <option value="{{ env }}" {% if subscription.get('C-SC') == full_value %}selected{% endif %}>{{ env }}</option>
+                  {% endfor %}
+                </select>
+              </td>
+            </tr>  
+ 
+            <tr>
+              <td><span class="field-label">Person-related</span><div class="readonly">{{ subscription.get('Person-related (Current)', 'N/A') }}</div></td>
+              <td><div class="field-label">Person-related</div>
+                <select class="editable" style="text-align-last: center;">
+                  {% for env in ['Yes', 'No'] %}
+                    <option {% if subscription.get('Person-related') == env %}selected{% endif %}>{{ env }}</option>
+                  {% endfor %}
+                </select>
+              </td>
+            </tr> 
+            <tr>
+              <td><span class="field-label">Last Review Date</span><div class="readonly">{{ subscription['Last Review Date'] }}</div></td>
+              <td><span class="field-label">Last Review Date</span><div class="readonly">{{ subscription['Last Review Date'] }}</div></td>
+            </tr>
+          </tbody>
+      </table>
+
+      <div class="btn-group">
+        <button class="action-btn save-btn" onclick="saveChanges()">Save</button>
+        <button class="action-btn submit-btn" onclick="submitChanges(this)">
+          <span class="btn-text">Submit</span>
+          <span class="spinner" style="display:none;"></span>
+        </button>
+        <button class="action-btn cancel-btn" onclick="location.href='/components/metadata'">Cancel</button>
+      </div>
+
+      <div id="successMessage" class="success-popup">✅ Saved successfully!</div>
+      <div id="submitMessage" class="success-popup">✅ Changes submitted!</div>
+    </main>
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+      </div>
+    </div>
+  
+    <footer>
+      <p>&copy; 2025 Bosch Organization</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Terms</a> |
+        <a href="#">Support</a> |
+        <a href="#">Contact</a> |
+        <a href="#">Updates</a> |
+        <a href="#">Version 1.0.0</a> |
+        <a href="#">Community Page</a> |
+        <a href="#">News & Update</a>
+      </div>
+    </footer>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

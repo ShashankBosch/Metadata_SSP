@@ -1,0 +1,10 @@
+pandas
+openpyxl
+Flask
+Flask-SQLAlchemy
+flask_cors
+gunicorn
+python-dotenv
+pyodbc
+requests
+urllib3

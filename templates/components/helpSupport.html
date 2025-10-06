@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Help & Support</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/symbol.png') }}" type="image/x-icon">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='components/cssMeta/metaData.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+</head>
+<body>
+  <!-- Top color line ribbon of bosch -->
+  <img src="{{ url_for('static', filename='images/line_image.svg') }}" alt="Top Border" class="line-ribbon"/> 
+    <div id="mainContent">
+      <!-- Header -->
+      <header class="main-header">
+        <div class="left-header">
+        <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/bosch_Logo.png') }}" alt="Main Logo" class="header-logo" id="boschLogo" /></a>
+        </div>
+        <nav class="top-menu">
+          <ul>
+            <li><a href="{{ url_for('metadata') }}">Asset Inventory & Metadata Detail</a></li>
+          </ul>
+        </nav>
+      </header>
+      <main class="help-support-content">
+  <h2>Metadata Review Support</h2>
+  <p class="intro-text">
+    Accurate and comprehensive metadata is critical for ensuring the integrity, discoverability, and compliance of your content assets.
+    Our Metadata Review process is designed to maintain the highest standards of data quality across your portfolio.
+  </p>
+
+  <!-- Metadata Definition -->
+  <section class="support-section">
+    <h3>What is Metadata Review?</h3>
+    <p>
+      Metadata Review refers to the systematic validation and verification of descriptive, administrative, and technical metadata associated with your digital assets. This ensures metadata is:
+    </p>
+    <ul>
+      <li>Accurate, complete, and consistent</li>
+      <li>Aligned with organizational standards and industry best practices</li>
+      <li>Compliant with applicable legal, licensing, and regulatory requirements</li>
+    </ul>
+    <p>Reviewed elements include: titles, descriptions, keywords, rights information, dates, and identifiers.</p>
+  </section>
+
+  <!-- Guidelines -->
+  <section class="support-section">
+    <h3>Metadata Review Guidelines</h3>
+    <ul>
+      <li>Follow our metadata schema and formatting requirements</li>
+      <li>Include all mandatory fields marked as required</li>
+      <li>Avoid duplication, irrelevant entries, or inconsistent terminology</li>
+      <li>Verify rights and usage information</li>
+      <li>Maintain consistency in style, spelling, and data conventions</li>
+    </ul>
+    <p>Refer to our <a href="#">Metadata Submission Standards</a> for detailed specs.</p>
+  </section>
+
+  <!-- Workflow -->
+  <section class="support-section">
+    <h3>Metadata Review Workflow</h3>
+    <ol>
+      <li><strong>Submission:</strong> Metadata is submitted via the designated portal or interface.</li>
+      <li><strong>Automated Validation:</strong> Completeness, formatting, and schema checks.</li>
+      <li><strong>Manual Review:</strong> Expert assessment of relevance and accuracy.</li>
+      <li><strong>Feedback & Resolution:</strong> Corrections requested or approval confirmed.</li>
+    </ol>
+    <p><strong>Turnaround Time:</strong> 24–72 business hours, subject to volume and complexity.</p>
+  </section>
+
+  <!-- Issues -->
+  <section class="support-section">
+    <h3>Common Metadata Issues</h3>
+    <ul>
+      <li>Incomplete or missing required fields</li>
+      <li>Inconsistent terminology or formatting</li>
+      <li>Invalid rights and licensing data</li>
+      <li>Localization errors or mismatches</li>
+    </ul>
+    <p>Please check our <a href="#">Metadata Quality Guidelines</a> before submitting.</p>
+  </section>
+
+  <!-- Contact -->
+  <section class="support-section nth-section">
+    <h3>Need Assistance?</h3>
+    <p>
+      Our dedicated Metadata Support team is available to help you:
+    </p>
+    <ul>
+      <li><strong>Submit a Support Request:</strong> <a href="#">Click here</a></li>
+      <li><strong>Email:</strong> <a href="mailto:support@bosch.com">support@bosch.com</a></li>
+      <li><strong>Live Chat:</strong> Available Monday to Friday, 9 AM – 6 PM (local time)</li>
+    </ul>
+  </section>
+</main>
+
+    <footer>
+        <p>&copy; 2025 Bosch Organization</p>
+        <div class="footer-links">
+          <a href="#">Privacy Policy</a> |
+          <a href="#">Terms</a> |
+          <a href="#">Support</a> |
+          <a href="#">Contact</a> |
+          <a href="#">Updates</a> |
+          <a href="#">Version 1.0.0</a> |
+          <a href="#">Community Page</a> |
+          <a href="#">News & Update </a>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='components/jsMeta/metaData.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
