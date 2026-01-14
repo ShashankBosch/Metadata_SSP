@@ -791,4 +791,51 @@ footer p:first-child{
   font-weight: 600;
   color: #333;
 }
+/* Modal - Meta Page */
+.modal-meta-page {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: auto;
+}
+ 
+.modal-meta-page-content {
+  background-color: #fff;
+  margin: 12% auto;
+  padding: 20px 30px;
+  border-radius: 8px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease-out;
+}
+ 
+.modal-meta-page h2 {
+  color: #c0392b;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+ 
+.modal-meta-page p {
+  font-size: 15px;
+  color: #444;
+}
+ 
+.modal-meta-page-close {
+  color: #aaa;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+ 
+.modal-meta-page-close:hover {
+  color: #000;
+}
  

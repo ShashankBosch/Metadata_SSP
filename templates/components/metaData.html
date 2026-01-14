@@ -39,7 +39,12 @@
   <div class="table-action-bar">
     <button id="exportBtn" title="Export Selected" class="export-icon"><i class="fas fa-file-export"></i></button>
   </div>
-
+<!-- Select All btn -->
+<div id="selectAllBar" style="display:none; margin-bottom:10px;">
+  <button id="selectAllBtn">
+    Select All
+  </button>
+</div>
  <table class="asset-table redesigned-table">
   <thead>
     <tr>
@@ -181,7 +186,6 @@
       </div>
     </footer>
   </div>
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
   <script src="{{ url_for('static', filename='components/jsMeta/metaData.js') }}"></script>
   
 </body>

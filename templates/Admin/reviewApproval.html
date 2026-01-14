@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='Admin/admin.css') }}" />
-  <link rel="shortcut icon" href="../images/symbol.png" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/symbol.png') }}" type="image/x-icon">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <body>
@@ -32,14 +32,41 @@
     <main class="main-asset-page admin-page">
       <section id="approval-section" class="panel">
     <h2>Review & Approval</h2>
-    <label for="reviewDropdown">Select:</label>
-    <select id="reviewDropdown">
-      <option value="all">All</option>
-      <option value="pending">Pending Request</option>
-      <option value="approved">Approved</option>
-      <option value="rejected">Rejected</option>
-    </select>
-      <!-- Add dynamic content here based on selection -->
+<div class="filter-container">
+        <div class="search-wrapper">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="searchInput" placeholder="Search requests...">
+        </div>
+       
+        <div class="filter-wrapper" style="position: relative;">
+          <button class="filter-btn" id="filterBtn">
+            <i class="fas fa-filter"></i> Filter
+          </button>
+          <div class="filter-dropdown" id="filterDropdown">
+            <div class="filter-option">
+              <input type="checkbox" id="filterAll" value="all" checked>
+              <label for="filterAll">All</label>
+              <span class="count-badge" id="countAll">0</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="filterPending" value="pending" checked>
+              <label for="filterPending">Pending</label>
+              <span class="count-badge" id="countPending">0</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="filterApproved" value="approved" checked>
+              <label for="filterApproved">Approved</label>
+              <span class="count-badge" id="countApproved">0</span>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="filterRejected" value="rejected" checked>
+              <label for="filterRejected">Rejected</label>
+              <span class="count-badge" id="countRejected">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+     <!-- Add dynamic content here based on selection -->
   <div id="reviewDetails">
 <table class="approval-table">
   <thead>
@@ -59,7 +86,7 @@
   </thead>
   <tbody>
     {% for approval in approvals %}
-    <tr data-status="{{ approval['Status'] | lower }}">
+    <tr data-id="{{ approval['ID'] }}" data-status="{{ approval['Status'] | lower }}">
       <td>{{ approval['Platform'] }}</td>
       <td>{{ approval['ID'] }}</td>
       <td>{{ approval['Name'] }}</td>
@@ -86,6 +113,7 @@
     </tr>
     {% endfor %}
   </tbody>
+
 </table>
   <div id="approval-modal" class="modal">
     <div class="modal-content">
@@ -113,8 +141,7 @@
           <a href="#">News & Update </a>
         </div>
       </footer>
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
-  <script src="{{ url_for('static', filename='Admin/admin.js') }}"></script>
+  <script src="{{ url_for('static', filename='Admin/review.js') }}"></script>
  
 </body>
 </html>

@@ -198,6 +198,13 @@
       </div>
     </footer>
   </div>
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+<div id="modalMetaPage" class="modal-meta-page">
+  <div class="modal-meta-page-content">
+    <span class="modal-meta-page-close" onclick="closeModalMetaPage()">&times;</span>
+    <h2>We couldn't get the data from RefMDs Portal</h2>
+    <p>Please fill the details in manual way.</p>
+  </div>
+</div>
+  <script src="{{ url_for('static', filename='components/jsMeta/metadetails.js') }}"></script>
 </body>
 </html>
